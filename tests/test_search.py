@@ -1,9 +1,11 @@
+import pytest
 from pages.result import DuckDuckGoResultPage
 from pages.search import DuckDuckGoSearchPage
 
 
-def test_basic_duckduckgo_search(browser):
-    search_page = DuckDuckGoSearchPage(browser)
+@pytest.mark.parametrize('search_phrase', ['panda', 'python', None, 'polar bear'])
+def test_basic_duckduckgo_search(browser, search_phrase):
+    search_page = DuckDuckGoSearchPage(browser, search_phrase=search_phrase)
     result_page = DuckDuckGoResultPage(browser)
 
     search_page.load()
