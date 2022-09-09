@@ -25,3 +25,22 @@ def test_basic_duckduckgo_search(browser, search_phrase):
     assert result_page.get_search_phrase() == search_phrase
 
     assert search_phrase in result_page.get_page_title()
+
+
+def test_more_results_button_expands_results_found(browser):
+    search_page = DuckDuckGoSearchPage(browser, search_phrase='waffles')
+    result_page = DuckDuckGoResultPage(browser)
+
+    search_page.load()
+    search_page.search()
+
+    more_results_button = result_page.get_more_results_button()
+    assert more_results_button
+
+    result_links_titles_before_click = result_page.get_result_links_titles()
+    more_results_button.click()
+    result_links_titles_after_click = result_page.get_result_links_titles()
+    assert result_links_titles_after_click > result_links_titles_before_click
+
+    more_results_button = result_page.get_more_results_button()
+    assert more_results_button

@@ -5,6 +5,7 @@ class DuckDuckGoResultPage:
 
     SEARCH_INPUT_FIELD_LOCATOR = (By.ID, 'search_form_input')
     RESULT_LINK_LOCATOR = (By.CSS_SELECTOR, 'a[data-testid="result-title-a"')
+    MORE_RESULTS_BUTTON_LOCATOR = (By.CSS_SELECTOR, 'a.result--more__btn')
 
     def __init__(self, browser):
         self.browser = browser
@@ -21,3 +22,7 @@ class DuckDuckGoResultPage:
         result_links = self.browser.find_elements(*self.RESULT_LINK_LOCATOR)
         result_links_titles = [result_link.text for result_link in result_links]
         return result_links_titles
+
+    def get_more_results_button(self):
+        first_more_results_buttons = self.browser.find_element(*self.MORE_RESULTS_BUTTON_LOCATOR)
+        return first_more_results_buttons
