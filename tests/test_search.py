@@ -44,3 +44,23 @@ def test_more_results_button_expands_results_found(browser):
 
     more_results_button = result_page.get_more_results_button()
     assert more_results_button
+
+
+def test_is_ad_relevant_to_search_phrase_on_result_page(browser):
+    search_page = DuckDuckGoSearchPage(browser, search_phrase='ketchup')
+    result_page = DuckDuckGoResultPage(browser)
+
+    search_page.load()
+    search_page.search()
+
+    ad_titles = result_page.get_ads_titles()
+    assert len(ad_titles) > 0
+
+    search_phrase = search_page.search_phrase
+
+    ad_title_matching_search_phrase = [
+        ad_title
+        for ad_title in ad_titles
+        if search_phrase in ad_title.lower()
+    ]
+    assert len(ad_title_matching_search_phrase) > 0
