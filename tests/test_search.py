@@ -64,3 +64,23 @@ def test_is_ad_relevant_to_search_phrase_on_result_page(browser):
         if search_phrase in ad_title.lower()
     ]
     assert len(ad_title_matching_search_phrase) > 0
+
+
+def test_does_show_nothing_found_message_on_result_page_if_nothing_found(browser):
+    search_page = DuckDuckGoSearchPage(browser, search_phrase='nsokVsnjdl')
+    result_page = DuckDuckGoResultPage(browser)
+
+    search_page.load()
+    search_page.search()
+
+    search_phrase = result_page.get_search_phrase()
+
+    result_links_titles = result_page.get_result_links_titles()
+    assert len(result_links_titles) == 0
+
+    ad_titles = result_page.get_ads_titles()
+    assert len(ad_titles) == 0
+
+    no_results_message = result_page.get_no_results_found_message()
+    no_results_message_template = result_page.NO_RESULTS_FOUND_MESSAGE_TEMPLATE
+    assert no_results_message == no_results_message_template.format(search_phrase=search_phrase)
