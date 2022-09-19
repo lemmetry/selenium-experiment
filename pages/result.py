@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 class DuckDuckGoResultPage:
 
     SEARCH_INPUT_FIELD_LOCATOR = (By.ID, 'search_form_input')
-    RESULT_LINK_LOCATOR = (By.CSS_SELECTOR, 'a[data-testid="result-title-a"')
+    RESULT_LINK_LOCATOR = (By.CSS_SELECTOR, 'div.results a[data-testid="result-title-a"')
     MORE_RESULTS_BUTTON_LOCATOR = (By.CSS_SELECTOR, 'a.result--more__btn')
     AD_LINK_LOCATOR = (By.CSS_SELECTOR, 'div.results--ads a[data-testid="result-title-a"')
     NO_RESULTS_LOCATOR = (By.CSS_SELECTOR, 'div.no-results p.no-results__title')
