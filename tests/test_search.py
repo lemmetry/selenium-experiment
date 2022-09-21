@@ -84,3 +84,16 @@ def test_does_show_nothing_found_message_on_result_page_if_nothing_found(browser
     no_results_message = result_page.get_no_results_found_message()
     no_results_message_template = result_page.NO_RESULTS_FOUND_MESSAGE_TEMPLATE
     assert no_results_message == no_results_message_template.format(search_phrase=search_phrase)
+
+
+def test_autocomplete_options_pertain_to_search_phrase(browser):
+    search_page = DuckDuckGoSearchPage(browser, search_phrase='ManBearPig')
+
+    search_page.load()
+
+    autocomplete_suggestions = search_page.get_autocomplete_suggestions()
+    search_phrase = search_page.search_phrase
+    search_phrase_length = len(search_phrase)
+
+    for autocomplete_suggestion in autocomplete_suggestions:
+        assert autocomplete_suggestion.text[:search_phrase_length].lower() == search_phrase.lower()
